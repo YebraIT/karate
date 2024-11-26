@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    
+    <a href="{% url 'torneos:jugador_create' %}" class="btn btn-primary mb-3"> + Nuevo Participante</a>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Sexo</th>
+                <th>Estatura</th>
+                <th>Peso</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for jugador in object_list %}
+            <tr>
+                <td>{{ jugador.nombre }} {{ jugador.paterno }} {{ jugador.materno }}</td>
+                <td>{{ jugador.sexo }}</td>
+                <td>{{ jugador.estatura }}</td>
+                <td>{{ jugador.peso }}</td>
+                <td>
+                    <a href="{% url 'torneos:jugador_detail' jugador.pk %}" class="btn btn-info btn-sm">Ver</a>
+                    <a href="{% url 'torneos:jugador_update' jugador.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'torneos:jugador_delete' jugador.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Lista de Organizaciones{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>Lista de Organizaciones</h3>
+        <a href="{% url 'catalogos:organizacion_create' %}" class="btn btn-primary">Agregar Organización</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo Electrónico</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for organizacion in object_list %}
+                    <tr>
+                        <td>{{ organizacion.nombre }}</td>
+                        <td>{{ organizacion.direccion }}</td>
+                        <td>{{ organizacion.telefono }}</td>
+                        <td>{{ organizacion.correo_electronico }}</td>
+                        <td>
+                            <a href="{% url 'catalogos:organizacion_update' organizacion.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url 'catalogos:organizacion_delete' organizacion.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Crear/Editar Organización{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>{% if object %}Editar{% else %}Crear{% endif %} Organización</h3>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">{% if object %}Actualizar{% else %}Guardar{% endif %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
