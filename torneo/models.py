@@ -94,3 +94,27 @@ class Clasificacion(models.Model):
 
     def __str__(self):
         return f'Clasificación de {self.participante.nombre} en {self.torneo.nombre}'
+
+
+
+class VW_Jugador(models.Model):
+    nombre = models.CharField(max_length=100)
+    paterno = models.CharField(max_length=100)
+    materno = models.CharField(max_length=100)
+    fecha_nacimiento = models.DateTimeField(default=None)  
+    sexo = models.CharField(max_length=10)
+    estatura = models.DecimalField(max_digits=5, decimal_places=2)  # en metros, ej: 1.75
+    peso = models.DecimalField(max_digits=5, decimal_places=2)  # en kilogramos, ej: 70.5
+    categoria_id = models.IntegerField()
+    Grado = models.CharField(max_length=100)
+    tipo_id = models.IntegerField()
+    Categoria = models.CharField(max_length=100)
+    competencia_id = models.IntegerField()
+    Competencia = models.CharField(max_length=100)
+    coach = models.IntegerField()
+    equipo =  models.IntegerField()
+    Escuela = models.CharField(max_length=100)
+
+    class meta:
+        managed=False
+        db_table='vw_jugador'
