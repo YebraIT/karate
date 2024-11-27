@@ -33,6 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('torneo/',include(('torneo.urls'), namespace='torneos')),
     path('catalogo/',include(('catalogo.urls'), namespace='catalogos')),
+    path('participante/',include(('participante.urls'), namespace='participantes')),
    
     path('api-auth/', include('rest_framework.urls')),
     # Otras rutas...
