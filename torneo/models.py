@@ -48,7 +48,7 @@ class Jugador(models.Model):
     nombre = models.CharField(max_length=100)
     paterno = models.CharField(max_length=100)
     materno = models.CharField(max_length=100)
-    equipo = models.ForeignKey(Participante, limit_choices_to={'tipo__nombre': 'Equipo'}, on_delete=models.CASCADE, related_name='jugadores_equipo', null=True, blank=True)
+    equipo = models.ForeignKey(Organizacion,  on_delete=models.CASCADE, related_name='jugadores_equipo', null=True, blank=True)
     sexo = models.CharField(max_length=10, choices=[('M', 'Masculino'), ('F', 'Femenino')])
     estatura = models.DecimalField(max_digits=5, decimal_places=2)  # en metros, ej: 1.75
     peso = models.DecimalField(max_digits=5, decimal_places=2)  # en kilogramos, ej: 70.5
