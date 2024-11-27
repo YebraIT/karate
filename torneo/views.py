@@ -2,7 +2,7 @@ from django.shortcuts import render
 from torneo.models import Clasificacion
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from .models import Participante, Jugador, Torneo, Organizacion, Categoria, TipoParticipante, ParticipacionTorneo, Clasificacion
+from .models import Participante, Jugador, Torneo, Organizacion, Categoria, TipoParticipante, ParticipacionTorneo, Clasificacion, VW_Jugador
 
 # Create your views here.
 def actualizar_clasificacion(partido):
@@ -71,6 +71,8 @@ class ParticipanteDetailView(DetailView):
 # Vistas para Participante
 class JugadorListView(ListView):
     model = Jugador
+    x=VW_Jugador.objects.all()
+    print(x)
     template_name = 'jugador/jugador_list.html'
 
 class JugadorCreateView(CreateView):
