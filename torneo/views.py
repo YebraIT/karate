@@ -83,12 +83,12 @@ class JugadorUpdateView(UpdateView):
     model = Jugador
     fields = '__all__'
     template_name = 'jugador/jugador_form.html'
-    success_url = reverse_lazy('jugador_list')
+    success_url = reverse_lazy('torneos:jugador_list')
 
 class JugadorDeleteView(DeleteView):
     model = Jugador
     template_name = 'jugador/jugador_confirm_delete.html'
-    success_url = reverse_lazy('jugador_list')
+    success_url = reverse_lazy('torneos:jugador_list')
 
 class JugadorDetailView(DetailView):
     model = Jugador
