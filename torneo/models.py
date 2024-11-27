@@ -108,9 +108,9 @@ class VW_Jugador(models.Model):
     competencia_id = models.IntegerField()
     Competencia = models.CharField(max_length=100)
     coach = models.IntegerField()
-    equipo =  models.IntegerField()
+    equipo_id =  models.IntegerField()
     Escuela = models.CharField(max_length=100)
 
-    class meta:
+    class Meta:
         managed=False
         db_table='vw_jugador'
