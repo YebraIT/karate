@@ -113,17 +113,18 @@ def generar_gafete(request, jugador_id):
     c = canvas.Canvas(response)
 
     # Fondo del gafete (opcional)
-    fondo_jpg = "ruta_a_tu_imagen/fondo.jpg"
-    c.drawImage(fondo_jpg, 0, 0, width=600, height=400)  # Ajusta el tamaño según tu diseño
+    fondo_jpg = "static/assets/img/fondo_g.jpeg"
+    c.drawImage(fondo_jpg, 0, 0, width=600, height=800)  # Ajusta el tamaño según tu diseño
 
     # Dibujar datos del jugador
-    c.setFont("Helvetica", 12)
-    c.drawString(50, 350, f"Nombre: {jugador.nombre} {jugador.paterno} {jugador.materno}")
-    c.drawString(50, 320, f"Equipo: {jugador.equipo}")
-    c.drawString(50, 290, f"Sexo: {jugador.sexo}")
-    c.drawString(50, 260, f"Estatura: {jugador.estatura} m")
-    c.drawString(50, 230, f"Peso: {jugador.peso} kg")
-    c.drawString(50, 200, f"Fecha de Nacimiento: {jugador.fecha_nacimiento}")
+    c.setFont("Helvetica-Bold", 18)
+    c.drawString(210, 282, f" {jugador.nombre} {jugador.paterno} {jugador.materno}")
+    c.drawString(210, 259, f" {jugador.tipo}")
+    c.drawString(190, 135, f" {jugador.equipo}")
+    c.drawString(190, 104, f" {jugador.categoria}")
+    c.drawString(190, 68, f" {jugador.estatura} m")
+    c.drawString(190, 34, f" {jugador.peso} kg")
+
 
     # Guardar el PDF
     c.save()
