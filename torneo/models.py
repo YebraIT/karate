@@ -7,11 +7,29 @@ class Torneo(models.Model):
     nombre = models.CharField(max_length=100)
     tipo = models.ForeignKey(TipoTorneo, on_delete=models.CASCADE, related_name='torneos')
     deporte = models.ForeignKey(Deporte, on_delete=models.CASCADE, related_name='torneos')
+    nareas = models.IntegerField(default=0)
     fecha_inicio = models.DateTimeField()
     fecha_fin = models.DateTimeField()
 
     def __str__(self):
         return self.nombre
+
+class AreasTorneo(models.Model):
+    nombre = models.CharField(max_length=100)
+    torneo = models.ForeignKey('Torneo', on_delete=models.CASCADE, related_name='areas')
+    descripcion = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.nombre} - {self.torneo.nombre}'
+
+class GruposAreas(models.Model):
+    nombre = models.CharField(max_length=100)
+    area = models.ForeignKey('AreasTorneo', on_delete=models.CASCADE, related_name='grupos')
+    torneo = models.ForeignKey('Torneo', on_delete=models.CASCADE, related_name='grupos_torneo', default=0)
+    descripcion = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.nombre} - {self.area.nombre}'
 
 class GraficaTorneo(models.Model):
     nombre = models.CharField(max_length=100)
