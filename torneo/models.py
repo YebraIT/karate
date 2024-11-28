@@ -136,3 +136,45 @@ class VW_Jugador(models.Model):
     class Meta:
         managed=False
         db_table='vw_jugador'
+
+class VW_Grupos_Division_Kata(models.Model):
+    tipo_id = models.IntegerField()
+    Categoria = models.CharField(max_length=100)
+    sexo = models.CharField(max_length=100)
+    TotalParticipantes = models.IntegerField()
+    Grupos = models.IntegerField()
+
+    class Meta:
+        managed=False
+        db_table='vw_grupos_por_division_kata'
+
+class VW_Grupos_Division_Kumite(models.Model):
+    tipo_id = models.IntegerField()
+    Categoria = models.CharField(max_length=100)
+    sexo = models.CharField(max_length=100)
+    TotalParticipantes = models.IntegerField()
+    Grupos = models.IntegerField()
+
+    class Meta:
+        managed=False
+        db_table='vw_grupos_por_division_kumite'
+
+class VW_Grupos_Concentrado_Kata(models.Model):
+    Id_Grupo= models.IntegerField()
+    NombreG = models.CharField(max_length=100)
+    grupo = models.IntegerField()
+    Nombre_Grupo = models.CharField(max_length=100)
+
+    class Meta:
+        managed=False
+        db_table='vw_grupos_concentrado_kata'
+
+class VW_Grupos_Concentrado_Kumite(models.Model):
+    Id_Grupo= models.IntegerField()
+    NombreG = models.CharField(max_length=100)
+    grupo = models.IntegerField()
+    Nombre_Grupo = models.CharField(max_length=100)
+
+    class Meta:
+        managed=False
+        db_table='vw_grupos_concentrado_kumite'
