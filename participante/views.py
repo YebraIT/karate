@@ -1,45 +1,67 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.http import JsonResponse
+from torneo.models import VW_Jugador, Torneo
 
-def generar_arreglo(numero):
-    if numero < 1:
-        raise ValueError("El número debe ser mayor o igual a 1.")
-    return list(range(1, numero + 1))
+def organizar_torneo_por_categoria(jugadores, categoria):
+    jugadores_categoria = jugadores.filter(
+        categoria=categoria['categoria'], sexo=categoria['sexo']
+    ).values_list('id', flat=True)
 
-
-def organizar_torneo(numero_participantes):
+    numero_participantes = len(jugadores_categoria)
     if numero_participantes < 1:
-        raise ValueError("El número de participantes debe ser mayor o igual a 1.")
+        return [], []  # Sin jugadores para esta categoría
 
-    array_p = generar_arreglo(numero_participantes)  # Generar el arreglo inicial de participantes
-    num_grupos = (numero_participantes + 3) // 4  # Calcular la cantidad de grupos, redondeando hacia arriba
-    grupos = [[] for _ in range(num_grupos)]  # Crear una lista vacía para cada grupo
+    num_grupos = (numero_participantes + 3) // 4  # Calcular cantidad de grupos
+    grupos = [[] for _ in range(num_grupos)]
 
-    # Llenar los grupos con los participantes
-    for i, participante in enumerate(array_p):
-        grupos[i % num_grupos].append(participante)
+    # Llenar los grupos con jugadores
+    for i, jugador in enumerate(jugadores_categoria):
+        grupos[i % num_grupos].append(jugador)
 
-    # Rellenar los grupos que queden incompletos con '0' (fantasmas)
+    # Completar los grupos con ceros si hay menos de 4 participantes
     for grupo in grupos:
         while len(grupo) < 4:
             grupo.append(0)
 
-    return array_p, grupos 
-
+    return list(jugadores_categoria), grupos
 
 class Generar_Resultados(TemplateView):
     def get(self, request):
         try:
-            numero_participantes = 25
-
-            array_p, grupos = organizar_torneo(numero_participantes)
+            torneos_list = Torneo.objects.all()
 
             contexto = {
-                "numero_total_participantes": numero_participantes,
-                "numero_grupos": len(grupos),
-                "grupos": grupos,
-                "array_p": array_p
+                'torneos_list': torneos_list,
+            }
+
+            return render(request, 'resultados.html', contexto)
+        except ValueError as e:
+            return render(request, 'resultados.html', {"error": str(e)})
+
+    def post(self, request):
+        try:
+            torneos_list = Torneo.objects.all()
+            jugadores = VW_Jugador.objects.all()
+            categorias = VW_KATA.objects.values(
+                'id_cat', 'categoria', 'sexo'
+            ).distinct()
+
+            resultados_por_categoria = []
+
+            for categoria in categorias:
+                array_p, grupos = organizar_torneo_por_categoria(jugadores, categoria)
+                resultados_por_categoria.append({
+                    "categoria": categoria['categoria'],
+                    "sexo": categoria['sexo'],
+                    "numero_total_participantes": len(array_p),
+                    "numero_grupos": len(grupos),
+                    "grupos": grupos,
+                })
+
+            contexto = {
+                'torneos_list': torneos_list,
+                'resultados_por_categoria': resultados_por_categoria,
             }
 
             return render(request, 'resultados.html', contexto)
