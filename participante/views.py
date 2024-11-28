@@ -5,9 +5,10 @@ from django.db.models import Q
 from torneo.models import VW_Jugador, Torneo,VW_Grupos_Division_Kata, VW_Grupos_Division_Kumite, VW_Grupos_Concentrado_Kata, VW_Grupos_Concentrado_Kumite
 
 def organizar_torneo_por_categoria(jugadores, categoria):
+    # Filtrar jugadores por la categoría
     jugadores_categoria = jugadores.filter(
         tipo_id=categoria['tipo_id'], sexo=categoria['sexo']
-    ).values_list('id', flat=True)
+    ).values('id', 'nombre', 'paterno')  # Obtener id, nombre y paterno
 
     numero_participantes = len(jugadores_categoria)
     if numero_participantes < 1:
@@ -17,16 +18,24 @@ def organizar_torneo_por_categoria(jugadores, categoria):
         num_grupos = (numero_participantes + 3) // 4  # Calcular cantidad de grupos
         grupos = [[] for _ in range(num_grupos)]
 
-        # Llenar los grupos con jugadores
-        for i, jugador in enumerate(jugadores_categoria):
-            grupos[i % num_grupos].append(jugador)
+        # Asignar jugadores a los grupos y numerarlos dentro de cada grupo
+        numero_global = 1
 
-        # Completar los grupos con ceros si hay menos de 4 participantes
+        for i, jugador in enumerate(jugadores_categoria):
+            # Asignamos el jugador con el número local al grupo
+            jugador_con_numero = jugador.copy()
+            grupo_idx = i % num_grupos
+            jugador_con_numero['numero'] = (len(grupos[grupo_idx]) + 1)  # Numeración interna dentro del grupo
+            grupos[grupo_idx].append(jugador_con_numero)
+            numero_global += 1  # Incrementar el número global para el siguiente jugador
+
+        # Completar los grupos con fantasmas y mantener la numeración
         for grupo in grupos:
             while len(grupo) < 4:
-                grupo.append(0)
+                grupo.append({'id': 0, 'nombre': 'Fantasma', 'paterno': '', 'numero': len(grupo) + 1})
 
         return list(jugadores_categoria), grupos
+    
 
 class Generar_Resultados(TemplateView):
     def get(self, request):
@@ -80,10 +89,23 @@ class Generar_Resultados(TemplateView):
                     "grupos": grupos,
                 })
 
+
+            all_grup = []
+            all_grup.extend(grup_division_kata)
+            all_grup.extend(grup_division_kumite)
+
+            # Asignar los grupos a 3 tatamis
+            tatamis = [[], [], []] 
+
+            # Distribuir los grupos de manera equitativa entre los 3 tatamis
+            for i, grupo in enumerate(all_grup):
+                tatamis[i % 3].append(grupo)
+
             contexto = {
                 'torneos_list': torneos_list,
-                'grup_division_kumite': grup_division_kumite,
                 'grup_division_kata':grup_division_kata,
+                'grup_division_kumite': grup_division_kumite,
+                'tatamis': tatamis,
             }
 
             return render(request, 'resultados.html', contexto)
