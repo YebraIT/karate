@@ -3,6 +3,10 @@ from torneo.models import Clasificacion
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .models import Participante, Jugador, Torneo, Organizacion, Categoria, TipoParticipante, ParticipacionTorneo, Clasificacion, VW_Jugador
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+
+
 
 # Create your views here.
 def actualizar_clasificacion(partido):
@@ -95,3 +99,32 @@ class JugadorDeleteView(DeleteView):
 class JugadorDetailView(DetailView):
     model = Jugador
     template_name = 'jugador/jugador_detail.html'
+
+
+
+def generar_gafete(request, jugador_id):
+    jugador = Jugador.objects.get(pk=jugador_id)
+
+    # Crear una respuesta HTTP con contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename=gafete_{jugador.nombre}.pdf'
+
+    # Crear el canvas de ReportLab
+    c = canvas.Canvas(response)
+
+    # Fondo del gafete (opcional)
+    fondo_jpg = "ruta_a_tu_imagen/fondo.jpg"
+    c.drawImage(fondo_jpg, 0, 0, width=600, height=400)  # Ajusta el tamaño según tu diseño
+
+    # Dibujar datos del jugador
+    c.setFont("Helvetica", 12)
+    c.drawString(50, 350, f"Nombre: {jugador.nombre} {jugador.paterno} {jugador.materno}")
+    c.drawString(50, 320, f"Equipo: {jugador.equipo}")
+    c.drawString(50, 290, f"Sexo: {jugador.sexo}")
+    c.drawString(50, 260, f"Estatura: {jugador.estatura} m")
+    c.drawString(50, 230, f"Peso: {jugador.peso} kg")
+    c.drawString(50, 200, f"Fecha de Nacimiento: {jugador.fecha_nacimiento}")
+
+    # Guardar el PDF
+    c.save()
+    return response

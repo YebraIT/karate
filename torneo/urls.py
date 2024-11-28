@@ -2,7 +2,7 @@ from django.urls import path
 #from rest_framework import routers
 from .views import (
     JugadorCreateView, JugadorDeleteView, JugadorDetailView, JugadorListView, JugadorUpdateView, ParticipanteListView, ParticipanteCreateView, ParticipanteUpdateView,
-    ParticipanteDeleteView, ParticipanteDetailView,
+    ParticipanteDeleteView, ParticipanteDetailView, generar_gafete,
     # Importa las vistas para los otros modelos aquí...
 )
 
@@ -20,4 +20,7 @@ urlpatterns = [
     path('jugadores/<int:pk>/edit/', JugadorUpdateView.as_view(), name='jugador_update'),
     path('jugadores/<int:pk>/delete/', JugadorDeleteView.as_view(), name='jugador_delete'),
     path('jugadores/<int:pk>/', JugadorDetailView.as_view(), name='jugador_detail'),
+    path('jugadores/', JugadorListView.as_view(), name='jugador_list'),
+    path('jugadores/<int:jugador_id>/gafete/', generar_gafete, name='gafete_jugador'),
+
 ]
