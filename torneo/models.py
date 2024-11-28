@@ -73,10 +73,6 @@ class Jugador(models.Model):
     tipo = models.ForeignKey(TipoParticipante, on_delete=models.CASCADE, related_name='jugadores')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='jugadores', null=True, blank=True)
     competencia = models.ForeignKey(TipoCompetencia, on_delete=models.CASCADE, related_name='jugadores')
-    coach = models.IntegerField(
-        choices=[(1, 'Si'), (0, 'No')]
-    )
-    fecha_nacimiento = models.DateTimeField(default=None)  
 
     def __str__(self):
         return f'{self.nombre} - {self.equipo.nombre}'
