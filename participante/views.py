@@ -89,17 +89,20 @@ class Generar_Resultados(TemplateView):
                     "grupos": grupos,
                 })
 
-
             all_grup = []
             all_grup.extend(grup_division_kata)
             all_grup.extend(grup_division_kumite)
-
-            # Asignar los grupos a 3 tatamis
-            tatamis = [[], [], []] 
-
-            # Distribuir los grupos de manera equitativa entre los 3 tatamis
-            for i, grupo in enumerate(all_grup):
-                tatamis[i % 3].append(grupo)
+            print(all_grup)
+            tatamis = [[], [], []]
+            for grupo in all_grup:
+                for subgrupo in grupo['grupos']:
+                    # Encuentra el tatami con menos subgrupos y asigna el subgrupo allí
+                    tatami_index = min(range(3), key=lambda i: len(tatamis[i]))
+                    tatamis[tatami_index].append({
+                        "Categoria": grupo['Categoria'],
+                        "sexo": grupo['sexo'],
+                        "subgrupo": subgrupo
+                    })
 
             contexto = {
                 'torneos_list': torneos_list,

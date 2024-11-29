@@ -110,45 +110,54 @@
                         <tr>
                             <!-- Columna Tatami 1 -->
                             <td>
-                                {% for resultado in grup_division_kata %}
-                                    {% for grupo in resultado.grupos %}
-                                        {% for participante in grupo %}
-                                            {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
-                                            <br>
+                                {% for subgrupo in tatamis.0 %}
+                                    <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
+                                    <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
+                                    <ul>
+                                        {% for participante in subgrupo.subgrupo %}
+                                            <li>
+                                                {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
+                                            </li>
                                         {% endfor %}
-                                        <hr>
-                                    {% endfor %}
+                                    </ul>
+                                    <hr>
                                 {% endfor %}
                             </td>
-
+                
                             <!-- Columna Tatami 2 -->
                             <td>
-                                {% for resultado in grup_division_kumite %}
-                                    {% for grupo in resultado.grupos %}
-                                        {% for participante in grupo %}
-                                            {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
-                                            <br>
+                                {% for subgrupo in tatamis.1 %}
+                                    <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
+                                    <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
+                                    <ul>
+                                        {% for participante in subgrupo.subgrupo %}
+                                            <li>
+                                                {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
+                                            </li>
                                         {% endfor %}
-                                        <hr>
-                                    {% endfor %}
+                                    </ul>
+                                    <hr>
                                 {% endfor %}
                             </td>
-
+                
                             <!-- Columna Tatami 3 -->
                             <td>
-                                {% for resultado in grup_division_kata %}
-                                    {% for grupo in resultado.grupos %}
-                                        {% for participante in grupo %}
-                                            {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
-                                            <br>
+                                {% for subgrupo in tatamis.2 %}
+                                    <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
+                                    <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
+                                    <ul>
+                                        {% for participante in subgrupo.subgrupo %}
+                                            <li>
+                                                {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
+                                            </li>
                                         {% endfor %}
-                                        <hr>
-                                    {% endfor %}
+                                    </ul>
+                                    <hr>
                                 {% endfor %}
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>                
             </div>
         </div>
     {% endif %}
