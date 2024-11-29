@@ -176,3 +176,10 @@ class VW_Grupos_Concentrado_Kumite(models.Model):
     class Meta:
         managed=False
         db_table='vw_grupos_concentrado_kumite'
+
+class VW_Horarios(models.Model):
+    hora = models.CharField(max_length=100)
+
+    class Meta:
+        managed=False
+        db_table='vw_horario'
