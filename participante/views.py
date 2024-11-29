@@ -92,7 +92,6 @@ class Generar_Resultados(TemplateView):
             all_grup = []
             all_grup.extend(grup_division_kata)
             all_grup.extend(grup_division_kumite)
-            print(all_grup)
             tatamis = [[], [], []]
             for grupo in all_grup:
                 for subgrupo in grupo['grupos']:

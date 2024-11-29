@@ -101,24 +101,41 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-md-4">Tatami 1</th>
-                            <th class="col-md-4">Tatami 2</th>
-                            <th class="col-md-4">Tatami 3</th>
+                            <th class="col-md-1">Horario</th>
+                            <th class="col-md-3">Tatami 1</th>
+                            <th class="col-md-3">Tatami 2</th>
+                            <th class="col-md-3">Tatami 3</th>
+                            <th class="col-md-1">Horario</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <!-- Horario -->
+                            <td>
+                                
+                            </td>
+
                             <!-- Columna Tatami 1 -->
                             <td>
                                 {% for subgrupo in tatamis.0 %}
                                     <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
                                     <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
                                     <ul>
-                                        {% for participante in subgrupo.subgrupo %}
-                                            <li>
-                                                {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
-                                            </li>
-                                        {% endfor %}
+                                        <li>
+                                            {{ subgrupo.subgrupo.0.numero }}.- {{ subgrupo.subgrupo.0.nombre }} {{ subgrupo.subgrupo.0.paterno }} ({{ subgrupo.subgrupo.0.id }})
+                                        </li>
+                                        <label>vs</label>
+                                        <li>
+                                            {{ subgrupo.subgrupo.3.numero }}.- {{ subgrupo.subgrupo.3.nombre }} {{ subgrupo.subgrupo.3.paterno }} ({{ subgrupo.subgrupo.3.id }})
+                                        </li>
+                                        <hr>
+                                        <li>
+                                            {{ subgrupo.subgrupo.1.numero }}.- {{ subgrupo.subgrupo.1.nombre }} {{ subgrupo.subgrupo.1.paterno }} ({{ subgrupo.subgrupo.1.id }})
+                                        </li>
+                                        <label>vs</label>
+                                        <li>
+                                            {{ subgrupo.subgrupo.2.numero }}.- {{ subgrupo.subgrupo.2.nombre }} {{ subgrupo.subgrupo.2.paterno }} ({{ subgrupo.subgrupo.2.id }})
+                                        </li>
                                     </ul>
                                     <hr>
                                 {% endfor %}
@@ -130,11 +147,21 @@
                                     <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
                                     <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
                                     <ul>
-                                        {% for participante in subgrupo.subgrupo %}
-                                            <li>
-                                                {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
-                                            </li>
-                                        {% endfor %}
+                                        <li>
+                                            {{ subgrupo.subgrupo.0.numero }}.- {{ subgrupo.subgrupo.0.nombre }} {{ subgrupo.subgrupo.0.paterno }} ({{ subgrupo.subgrupo.0.id }})
+                                        </li>
+                                        <label>vs</label>
+                                        <li>
+                                            {{ subgrupo.subgrupo.3.numero }}.- {{ subgrupo.subgrupo.3.nombre }} {{ subgrupo.subgrupo.3.paterno }} ({{ subgrupo.subgrupo.3.id }})
+                                        </li>
+                                        <hr>
+                                        <li>
+                                            {{ subgrupo.subgrupo.1.numero }}.- {{ subgrupo.subgrupo.1.nombre }} {{ subgrupo.subgrupo.1.paterno }} ({{ subgrupo.subgrupo.1.id }})
+                                        </li>
+                                        <label>vs</label>
+                                        <li>
+                                            {{ subgrupo.subgrupo.2.numero }}.- {{ subgrupo.subgrupo.2.nombre }} {{ subgrupo.subgrupo.2.paterno }} ({{ subgrupo.subgrupo.2.id }})
+                                        </li>
                                     </ul>
                                     <hr>
                                 {% endfor %}
@@ -146,14 +173,29 @@
                                     <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
                                     <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
                                     <ul>
-                                        {% for participante in subgrupo.subgrupo %}
-                                            <li>
-                                                {{ participante.numero }}.- {{ participante.nombre }} {{ participante.paterno }} ({{ participante.id }})
-                                            </li>
-                                        {% endfor %}
+                                        <li>
+                                            {{ subgrupo.subgrupo.0.numero }}.- {{ subgrupo.subgrupo.0.nombre }} {{ subgrupo.subgrupo.0.paterno }} ({{ subgrupo.subgrupo.0.id }})
+                                        </li>
+                                        <label>vs</label>
+                                        <li>
+                                            {{ subgrupo.subgrupo.3.numero }}.- {{ subgrupo.subgrupo.3.nombre }} {{ subgrupo.subgrupo.3.paterno }} ({{ subgrupo.subgrupo.3.id }})
+                                        </li>
+                                        <hr>
+                                        <li>
+                                            {{ subgrupo.subgrupo.1.numero }}.- {{ subgrupo.subgrupo.1.nombre }} {{ subgrupo.subgrupo.1.paterno }} ({{ subgrupo.subgrupo.1.id }})
+                                        </li>
+                                        <label>vs</label>
+                                        <li>
+                                            {{ subgrupo.subgrupo.2.numero }}.- {{ subgrupo.subgrupo.2.nombre }} {{ subgrupo.subgrupo.2.paterno }} ({{ subgrupo.subgrupo.2.id }})
+                                        </li>
                                     </ul>
                                     <hr>
                                 {% endfor %}
+                            </td>
+
+                            <!-- Horario -->
+                            <td>
+                                
                             </td>
                         </tr>
                     </tbody>

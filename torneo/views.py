@@ -76,7 +76,6 @@ class ParticipanteDetailView(DetailView):
 class JugadorListView(ListView):
     model = Jugador
     x=VW_Jugador.objects.all()
-    print(x)
     template_name = 'jugador/jugador_list.html'
 
 class JugadorCreateView(CreateView):
