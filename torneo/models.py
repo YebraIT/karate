@@ -66,6 +66,7 @@ class Jugador(models.Model):
     nombre = models.CharField(max_length=100)
     paterno = models.CharField(max_length=100)
     materno = models.CharField(max_length=100)
+    fecha_nacimiento = models.DateTimeField(default=None)  
     equipo = models.ForeignKey(Organizacion,  on_delete=models.CASCADE, related_name='jugadores_equipo', null=True, blank=True)
     sexo = models.CharField(max_length=10, choices=[('M', 'Masculino'), ('F', 'Femenino')])
     estatura = models.DecimalField(max_digits=5, decimal_places=2)  # en metros, ej: 1.75
@@ -73,6 +74,7 @@ class Jugador(models.Model):
     tipo = models.ForeignKey(TipoParticipante, on_delete=models.CASCADE, related_name='jugadores')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='jugadores', null=True, blank=True)
     competencia = models.ForeignKey(TipoCompetencia, on_delete=models.CASCADE, related_name='jugadores')
+    coach=models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.nombre} - {self.equipo.nombre}'
@@ -114,7 +116,7 @@ class Clasificacion(models.Model):
 class VW_Jugador(models.Model):
     nombre = models.CharField(max_length=100)
     paterno = models.CharField(max_length=100)
-    materno = models.CharField(max_length=100)
+    materno = models.CharField(max_length=100) 
     fecha_nacimiento = models.DateTimeField(default=None)  
     sexo = models.CharField(max_length=10)
     estatura = models.DecimalField(max_digits=5, decimal_places=2)  # en metros, ej: 1.75
@@ -125,7 +127,7 @@ class VW_Jugador(models.Model):
     Categoria = models.CharField(max_length=100)
     competencia_id = models.IntegerField()
     Competencia = models.CharField(max_length=100)
-    coach = models.IntegerField()
+    coach=models.IntegerField()
     equipo_id =  models.IntegerField()
     Escuela = models.CharField(max_length=100)
 
