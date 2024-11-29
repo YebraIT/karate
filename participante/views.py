@@ -2,8 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.http import JsonResponse
 from django.db.models import Q
-from torneo.models import VW_Jugador, Torneo,VW_Grupos_Division_Kata, VW_Grupos_Division_Kumite, VW_Grupos_Concentrado_Kata, VW_Grupos_Concentrado_Kumite
-
+from torneo.models import VW_Jugador, Torneo,VW_Grupos_Division_Kata, VW_Grupos_Division_Kumite, VW_Horarios
 def organizar_torneo_por_categoria(jugadores, categoria):
     # Filtrar jugadores por la categoría
     jugadores_categoria = jugadores.filter(
@@ -53,14 +52,14 @@ class Generar_Resultados(TemplateView):
     def post(self, request):
         try:
             torneos_list = Torneo.objects.all()
-            #KATA
+
+            # KATA
             jugadores_kata = VW_Jugador.objects.filter(Q(competencia_id=1) | Q(competencia_id=3))
             division_kata = VW_Grupos_Division_Kata.objects.values(
                 'tipo_id', 'Categoria', 'sexo'
             )
 
             grup_division_kata = []
-
             for dato in division_kata:
                 array_p, grupos = organizar_torneo_por_categoria(jugadores_kata, dato)
                 grup_division_kata.append({
@@ -71,14 +70,13 @@ class Generar_Resultados(TemplateView):
                     "grupos": grupos,
                 })
 
-            #KUMITE
+            # KUMITE
             jugadores_kumite = VW_Jugador.objects.filter(Q(competencia_id=2) | Q(competencia_id=3))
             division_kumite = VW_Grupos_Division_Kumite.objects.values(
                 'tipo_id', 'Categoria', 'sexo'
             )
 
             grup_division_kumite = []
-
             for dato in division_kumite:
                 array_p, grupos = organizar_torneo_por_categoria(jugadores_kumite, dato)
                 grup_division_kumite.append({
@@ -92,20 +90,33 @@ class Generar_Resultados(TemplateView):
             all_grup = []
             all_grup.extend(grup_division_kata)
             all_grup.extend(grup_division_kumite)
-            tatamis = [[], [], []]
+
+            tatamis = [[], [], []]  # Lista de tatamis
+            horario_index = 0  # Índice para manejar los horarios
+            horarios_list = list(VW_Horarios.objects.all())  # Lista de horarios disponibles
+
             for grupo in all_grup:
                 for subgrupo in grupo['grupos']:
-                    # Encuentra el tatami con menos subgrupos y asigna el subgrupo allí
                     tatami_index = min(range(3), key=lambda i: len(tatamis[i]))
+
+                    enfrentamientos = [
+                        {"jugador1": subgrupo[0], "jugador2": subgrupo[-1]},
+                        {"jugador1": subgrupo[1], "jugador2": subgrupo[-2]}
+                    ]
+
+                    for enfrentamiento in enfrentamientos:
+                        enfrentamiento["horario"] = horarios_list[horario_index % len(horarios_list)].hora
+                        horario_index += 1
+
                     tatamis[tatami_index].append({
                         "Categoria": grupo['Categoria'],
                         "sexo": grupo['sexo'],
-                        "subgrupo": subgrupo
+                        "enfrentamientos": enfrentamientos
                     })
 
             contexto = {
                 'torneos_list': torneos_list,
-                'grup_division_kata':grup_division_kata,
+                'grup_division_kata': grup_division_kata,
                 'grup_division_kumite': grup_division_kumite,
                 'tatamis': tatamis,
             }

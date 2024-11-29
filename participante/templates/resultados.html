@@ -101,105 +101,75 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-md-1">Horario</th>
-                            <th class="col-md-3">Tatami 1</th>
-                            <th class="col-md-3">Tatami 2</th>
-                            <th class="col-md-3">Tatami 3</th>
-                            <th class="col-md-1">Horario</th>
+                            <th class="col-md-4">Tatami 1</th>
+                            <th class="col-md-4">Tatami 2</th>
+                            <th class="col-md-4">Tatami 3</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <!-- Horario -->
-                            <td>
-                                
-                            </td>
-
                             <!-- Columna Tatami 1 -->
                             <td>
-                                {% for subgrupo in tatamis.0 %}
-                                    <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
-                                    <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
-                                    <ul>
-                                        <li>
-                                            {{ subgrupo.subgrupo.0.numero }}.- {{ subgrupo.subgrupo.0.nombre }} {{ subgrupo.subgrupo.0.paterno }} ({{ subgrupo.subgrupo.0.id }})
-                                        </li>
-                                        <label>vs</label>
-                                        <li>
-                                            {{ subgrupo.subgrupo.3.numero }}.- {{ subgrupo.subgrupo.3.nombre }} {{ subgrupo.subgrupo.3.paterno }} ({{ subgrupo.subgrupo.3.id }})
-                                        </li>
-                                        <hr>
-                                        <li>
-                                            {{ subgrupo.subgrupo.1.numero }}.- {{ subgrupo.subgrupo.1.nombre }} {{ subgrupo.subgrupo.1.paterno }} ({{ subgrupo.subgrupo.1.id }})
-                                        </li>
-                                        <label>vs</label>
-                                        <li>
-                                            {{ subgrupo.subgrupo.2.numero }}.- {{ subgrupo.subgrupo.2.nombre }} {{ subgrupo.subgrupo.2.paterno }} ({{ subgrupo.subgrupo.2.id }})
-                                        </li>
-                                    </ul>
+                                {% for grupo in tatamis.0 %}
+                                    <strong>Categoria:</strong> {{ grupo.Categoria }} <br>
+                                    <strong>Sexo:</strong> {{ grupo.sexo }} <br>
+                                    {% for enfrentamiento in grupo.enfrentamientos %}
+                                        <ul>
+                                            <li>
+                                                {{ enfrentamiento.jugador1.numero }}.- {{ enfrentamiento.jugador1.nombre }} {{ enfrentamiento.jugador1.paterno }} ({{ enfrentamiento.jugador1.id }})
+                                            </li>
+                                            {{ enfrentamiento.horario }} vs
+                                            <li>
+                                                {{ enfrentamiento.jugador2.numero }}.- {{ enfrentamiento.jugador2.nombre }} {{ enfrentamiento.jugador2.paterno }} ({{ enfrentamiento.jugador2.id }})
+                                            </li>
+                                        </ul>
+                                    {% endfor %}
                                     <hr>
                                 {% endfor %}
                             </td>
                 
                             <!-- Columna Tatami 2 -->
                             <td>
-                                {% for subgrupo in tatamis.1 %}
-                                    <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
-                                    <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
-                                    <ul>
-                                        <li>
-                                            {{ subgrupo.subgrupo.0.numero }}.- {{ subgrupo.subgrupo.0.nombre }} {{ subgrupo.subgrupo.0.paterno }} ({{ subgrupo.subgrupo.0.id }})
-                                        </li>
-                                        <label>vs</label>
-                                        <li>
-                                            {{ subgrupo.subgrupo.3.numero }}.- {{ subgrupo.subgrupo.3.nombre }} {{ subgrupo.subgrupo.3.paterno }} ({{ subgrupo.subgrupo.3.id }})
-                                        </li>
-                                        <hr>
-                                        <li>
-                                            {{ subgrupo.subgrupo.1.numero }}.- {{ subgrupo.subgrupo.1.nombre }} {{ subgrupo.subgrupo.1.paterno }} ({{ subgrupo.subgrupo.1.id }})
-                                        </li>
-                                        <label>vs</label>
-                                        <li>
-                                            {{ subgrupo.subgrupo.2.numero }}.- {{ subgrupo.subgrupo.2.nombre }} {{ subgrupo.subgrupo.2.paterno }} ({{ subgrupo.subgrupo.2.id }})
-                                        </li>
-                                    </ul>
+                                {% for grupo in tatamis.1 %}
+                                    <strong>Categoria:</strong> {{ grupo.Categoria }} <br>
+                                    <strong>Sexo:</strong> {{ grupo.sexo }} <br>
+                                    {% for enfrentamiento in grupo.enfrentamientos %}
+                                        <ul>
+                                            <li>
+                                                {{ enfrentamiento.jugador1.numero }}.- {{ enfrentamiento.jugador1.nombre }} {{ enfrentamiento.jugador1.paterno }} ({{ enfrentamiento.jugador1.id }})
+                                            </li>
+                                            {{ enfrentamiento.horario }} vs
+                                            <li>
+                                                {{ enfrentamiento.jugador2.numero }}.- {{ enfrentamiento.jugador2.nombre }} {{ enfrentamiento.jugador2.paterno }} ({{ enfrentamiento.jugador2.id }})
+                                            </li>
+                                        </ul>
+                                    {% endfor %}
                                     <hr>
                                 {% endfor %}
                             </td>
                 
                             <!-- Columna Tatami 3 -->
                             <td>
-                                {% for subgrupo in tatamis.2 %}
-                                    <strong>Categoria:</strong> {{ subgrupo.Categoria }} <br>
-                                    <strong>Sexo:</strong> {{ subgrupo.sexo }} <br>
-                                    <ul>
-                                        <li>
-                                            {{ subgrupo.subgrupo.0.numero }}.- {{ subgrupo.subgrupo.0.nombre }} {{ subgrupo.subgrupo.0.paterno }} ({{ subgrupo.subgrupo.0.id }})
-                                        </li>
-                                        <label>vs</label>
-                                        <li>
-                                            {{ subgrupo.subgrupo.3.numero }}.- {{ subgrupo.subgrupo.3.nombre }} {{ subgrupo.subgrupo.3.paterno }} ({{ subgrupo.subgrupo.3.id }})
-                                        </li>
-                                        <hr>
-                                        <li>
-                                            {{ subgrupo.subgrupo.1.numero }}.- {{ subgrupo.subgrupo.1.nombre }} {{ subgrupo.subgrupo.1.paterno }} ({{ subgrupo.subgrupo.1.id }})
-                                        </li>
-                                        <label>vs</label>
-                                        <li>
-                                            {{ subgrupo.subgrupo.2.numero }}.- {{ subgrupo.subgrupo.2.nombre }} {{ subgrupo.subgrupo.2.paterno }} ({{ subgrupo.subgrupo.2.id }})
-                                        </li>
-                                    </ul>
+                                {% for grupo in tatamis.2 %}
+                                    <strong>Categoria:</strong> {{ grupo.Categoria }} <br>
+                                    <strong>Sexo:</strong> {{ grupo.sexo }} <br>
+                                    {% for enfrentamiento in grupo.enfrentamientos %}
+                                        <ul>
+                                            <li>
+                                                {{ enfrentamiento.jugador1.numero }}.- {{ enfrentamiento.jugador1.nombre }} {{ enfrentamiento.jugador1.paterno }} ({{ enfrentamiento.jugador1.id }})
+                                            </li>
+                                            {{ enfrentamiento.horario }} vs
+                                            <li>
+                                                {{ enfrentamiento.jugador2.numero }}.- {{ enfrentamiento.jugador2.nombre }} {{ enfrentamiento.jugador2.paterno }} ({{ enfrentamiento.jugador2.id }})
+                                            </li>
+                                        </ul>
+                                    {% endfor %}
                                     <hr>
                                 {% endfor %}
                             </td>
-
-                            <!-- Horario -->
-                            <td>
-                                
-                            </td>
                         </tr>
                     </tbody>
-                </table>                
+                </table>                                      
             </div>
         </div>
     {% endif %}
